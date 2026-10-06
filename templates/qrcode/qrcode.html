@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .qrcode_page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 210mm;
+            height: 297mm;
+            padding: 30px;
+            text-align: center;
+            gap: 1cm;
+            font-size: 18pt;
+        }
+
+        .qrcode {
+            width: 80vw;
+            height: 80vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <div class="qrcode_page">
+        {{ header }}
+        <div class="qrcode">{{ qr_code | safe }}</div>
+        <label>Para ler o código QR com a câmera do celular, abra o aplicativo da câmera no celular e aponte-o para o
+            código QR.</label>
+    </div>
+</body>
+
+</html>

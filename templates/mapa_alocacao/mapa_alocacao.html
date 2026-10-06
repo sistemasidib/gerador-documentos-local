@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Salas</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 2mm;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0mm;
+            box-sizing: border-box;
+            font-size: 9pt;
+        }
+
+        .ma_page {
+            width: 297mm;
+            min-height: 210mm;
+            padding: 0;
+            margin: 0 auto;
+            position: relative;
+            page-break-after: always;
+        }
+
+        .ma_header {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .ma_notice-title {
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .ma_school-info {
+            width: 100%;
+            margin: 8px 0;
+            text-align: center;
+        }
+
+        .ma_school-name {
+            font-size: 10pt;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .ma_turno-info {
+            font-size: 10pt;
+            font-weight: bold;
+        }
+
+        .ma_turno-value {
+            font-weight: normal;
+        }
+
+        .ma_data-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .ma_table-header th {
+            background-color: #f2f2f2;
+            border: 1px solid black;
+            padding: 4px;
+            text-align: left;
+            font-weight: bold;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ma_table-row td {
+            border: 1px solid black;
+            padding: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ma_col-room {
+            width: 20%;
+        }
+
+        .ma_col-seq {
+            width: 10%;
+        }
+
+        .ma_col-first, .ma_col-last {
+            width: 20%;
+        }
+
+        .ma_col-seats {
+            width: 10%;
+            text-align: center;
+        }
+
+        .ma_totals {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ma_page">
+        {{ header }}
+
+        <div class="ma_school-info">
+            <div class="ma_school-name">{{ escola }} - {{ local_prova }}</div>
+        </div>
+        <div class="ma_turno-info">
+            Turno: <span class="ma_turno-value">{{ turno }}</span>
+            Dia: <span class="ma_turno-value">{{ dia }}</span>
+        </div>
+        <table class="ma_data-table">
+            <thead>
+                <tr class="ma_table-header">
+                    <th class="ma_col-room">Sala</th>
+                    <th class="ma_col-seq">Sequencial</th>
+                    <th class="ma_col-first">Primeiro candidato</th>
+                    <th class="ma_col-last">Último candidato</th>
+                    <th class="ma_col-last">Cargo</th>
+                    <th class="ma_col-seats">Quantidades</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sala in salas %}
+                <tr class="ma_table-row">
+                    <td class="ma_col-room">{{ sala.bloco }} - {{ sala.andar }} - {{ sala.nome }}</td>
+                    <td class="ma_col-seq">{{ sala.min_carteira }} a {{ sala.max_carteira }}</td>
+                    <td class="ma_col-first">{{ sala.primeiro_candidato }}</td>
+                    <td class="ma_col-last">{{ sala.ultimo_candidato }}</td>
+                    <td class="ma_col-last">{{ sala.cargo }}</td>
+                    <td class="ma_col-seats">{{ sala.quantidade_candidatos }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="ma_totals" colspan="2">TOTAL LOCAL PROVA: {{ total_candidatos }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

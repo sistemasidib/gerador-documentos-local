@@ -1,0 +1,63 @@
+<body>
+    <div class="d_page">
+        <div class="d_footer">
+            <div class="d_qr_code">{{ qr_code_ordem | safe }}</div>
+            <!-- <span>página 1</span> -->
+            <span></span>
+        </div>
+
+        <h1 class="d_edital">{{ edital }}</h1>
+        <div class="d_info">
+            <div class="d_qr_code">{{ qr_code | safe }}</div>
+            <div class="d_cargo">
+                <span>Cargo: {{ cargo }}</span>
+                <span>Local: {{ escola }}</span>
+            </div>
+            <div class="d_qr_code">{{ qr_code | safe }}</div>
+        </div>
+        <h2 class="d_tipo">{{ tipo }}</h2>
+
+        <div class="d_discursiva">
+            <span>{{ questao }}</span>
+        </div>
+
+        {% for linha in range(min(qtd_linhas, 30)) %}
+        <div class="d_linha"><span>{{ linha + 1}}</span>
+            <div class="d_retangulo"></div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if qtd_linhas > 30 %}
+    {% for i in range(1, ceil((qtd_linhas) / 30)) %}
+    <div class="d_page">
+        <div class="d_footer">
+            <div class="d_qr_code">{{ qr_code_ordem | safe }}</div>
+            <!-- <span>página {{ i + 1 }}</span> -->
+            <span></span>
+        </div>
+
+        <h1 class="d_edital">{{ edital }}</h1>
+        <div class="d_info">
+            <div class="d_qr_code">{{ qr_code | safe }}</div>
+            <div class="d_cargo">
+                <span>Cargo: {{ cargo }}</span>
+                <span>Local: {{ escola }}</span>
+            </div>
+            <div class="d_qr_code">{{ qr_code | safe }}</div>
+        </div>
+        <h2 class="d_tipo">{{ tipo }}</h2>
+
+        <div class="d_discursiva">
+            <span></span>
+        </div>
+
+        {% for linha in range(min(qtd_linhas - 30 * i, 30)) %}
+        <div class="d_linha"><span>{{ (30 * i) + linha + 1}}</span>
+            <div class="d_retangulo"></div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    {% endif %}
+</body>

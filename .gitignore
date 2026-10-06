@@ -1,0 +1,32 @@
+# Ambiente Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Dados locais de concursos (planilhas, PDFs gerados, logos por edital)
+concursos/*
+!concursos/.gitkeep
+
+# IDE / editor
+.cursor/
+.vscode/
+*.swp
+*.swo
+
+# Secrets
+.env
+.env.*
+*.pem
+credentials.json
+
+# Temporários de geração
+**/temp_*.html
+**/chunk*.pdf
+
+# SO
+.DS_Store
+Thumbs.db

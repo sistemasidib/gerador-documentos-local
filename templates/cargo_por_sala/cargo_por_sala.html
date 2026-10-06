@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .cps_page {
+            font-family: Arial, sans-serif;
+            font-size: 8pt;
+            position: relative;
+            page-break-after: always;
+            margin: 5mm;
+        }
+
+        /* Estilos da distribuição */
+        .cps_organizacao {
+            text-align: center;
+            font-size: 10pt;
+            margin-bottom: 10px;
+        }
+
+        .cps_school-container {
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+        }
+
+        .cps_school-header {
+            background-color: #c8c8c8;
+            padding: 5px;
+            font-weight: bold;
+            font-size: 10pt;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            column-gap: 10px;
+            align-items: center;
+        }
+
+        .cps_school-info {
+            justify-self: start;
+        }
+
+        .cps_school-total {
+            justify-self: center;
+        }
+
+        .cps_school-hour {
+            text-align: right;
+            min-width: 100px;
+            justify-self: end;
+        }
+
+        .cps_positions-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+            margin-top: 0;
+        }
+
+        .cps_positions-table th,
+        .cps_positions-table td {
+            border-top: 1px solid #000;
+            padding: 3px 5px;
+            text-align: left;
+        }
+
+        .cps_positions-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            padding: 3px 5px;
+            margin-top: 0;
+        }
+
+        .cps_total-candidates {
+            text-align: center;
+            font-weight: bold;
+            font-size: 10pt;
+            margin-top: 5px;
+            padding: 3px 5px;
+
+            /* background-color: #f8f8f8; */
+            /* border-top: 1px solid #ccc; */
+        }
+
+        .cps_footer {
+            position: fixed;
+            bottom: 15mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 8pt;
+        }
+    </style>
+
+    <div class="cps_page">
+        <!-- Cabeçalho similar ao da capa -->
+        {{ header }}
+
+        {% for sala in salas %}
+        <div class="cps_school-container">
+            <div class="cps_school-header">
+                <div class="cps_school-info">{{ sala.escola }} - {{ sala.bloco }} - {{ sala.andar }} - {{ sala.sala }}</div>
+                <div class="cps_school-total">(TOTAL: {{ sala.qtd_candidatos }})</div>
+                <div class="cps_school-hour">{{ sala.dia }} {{ sala.turno }} {{ sala.horario }} </div>
+            </div>
+
+            <table class="cps_positions-table">
+                <!-- <thead>
+                    <tr>
+                        <th style="width: 20%;">Qtd</th>
+                        <th style="width: 60%;">Cargo</th>
+                        <th style="width: 20%;">Nível</th>
+                    </tr>
+                </thead> -->
+                <tbody>
+                    {% for cargo in sala.cargos %}
+                    <tr>
+                        <td style="width: 5%;">{{ cargo.qtd }}</td>
+                        <td style="width: 75%;">{{ cargo.nome }}</td>
+                        <td style="width: 20%; text-align: right;">{{ cargo.nivel }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <!-- <div class="cps_total-candidates">
+                Total de candidatos: {{ sala.qtd_candidatos }}
+            </div> -->
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

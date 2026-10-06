@@ -1,0 +1,77 @@
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .cp_header {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+
+            gap: 2mm;
+            
+            & > * {
+                margin: 0;
+            }
+        }
+
+        .cp_header header {
+            width: 100%;
+            height: 1.25cm;
+            
+            display: flex;
+            align-items: center;
+            justify-content: space-between;   
+
+            padding: 0 2mm;
+
+        }
+
+        .cp_prefeitura_logo {
+            height: 100%;
+            width: auto;
+        }
+        
+        .cp_instituto_logo {
+            height: 100%;
+        }
+
+        .cp_info_edital {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+
+            & * {
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        .cp_nome_arquivo {
+            width: 100%;
+
+            background-color: #ddd;
+            
+            padding: 2mm 0 ;
+
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+    <div class="cp_header">
+        <header>
+            <img class="cp_prefeitura_logo" src="{{ edital_logo }}" />
+            <div class="cp_info_edital">
+                <h4>{{edital}}</h4>
+            </div>
+            <img class="cp_instituto_logo" src="{{ instituto_logo }}" />
+        </header>
+        <h5 class="cp_nome_arquivo">{{ nome_arquivo }}</h5>
+    </div>
+</body>

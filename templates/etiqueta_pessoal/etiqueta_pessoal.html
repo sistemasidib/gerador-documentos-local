@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    @page {
+      width: 216mm;
+      height: 108mm;
+      margin: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .ep_tag {
+      width: 100%;
+      height: 100%;
+      break-after: always;
+      page-break-after: always;
+    }   
+
+    .ep_label-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      padding: 10mm;
+      box-sizing: border-box;
+      justify-content: space-between;
+    }
+
+    .ep_left-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 15mm;
+    }
+
+    .ep_right-section {
+      width: 60mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .ep_entity {
+      font-size: 16pt;
+      margin-bottom: 5mm;
+      font-weight: bold;
+    }
+
+    .ep_position {
+      font-size: 16pt;
+      margin-bottom: 4mm;
+    }
+
+    .ep_school,
+    .ep_location,
+    .ep_candidate {
+      font-size: 16pt;
+      margin-bottom: 2mm;
+    }
+
+    .ep_order-number {
+      font-size: 20pt;
+      font-weight: bold;
+      /* margin-bottom: 10mm; */
+    }
+
+    .ep_qr-code {
+      width: 45mm;
+      height: 45mm;
+      /* margin-bottom: 20mm; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ep_inscription,
+    .ep_rg {
+      font-size: 16pt;
+    }
+
+    .ep_info {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ep_tag">
+    <div class="ep_label-container">
+      <div class="ep_left-section">
+        <div class="ep_entity">{{edital}}</div>
+
+        <div class="ep_info">
+          <div class="ep_position">{{ cargo }}</div>
+          <div class="ep_school">{{ escola_tag }} - {{ nome_escola }}  {{ local }}</div>
+          <div class="ep_location">{{ bloco }}  {{ andar }}  {{ sala }}</div>
+          <div class="ep_candidate">{{ nome_candidato }}</div>
+          <div class="ep_candidate">{{ turno }}</div>
+          <div class="ep_candidate">{{ dia }} {{ turno }}</div>
+          <!-- <div class="ep_candidate">{{ horario }}<div> -->
+        </div>
+      </div>
+      <div class="ep_right-section">
+        <div class="ep_order-number">N° DE ORDEM: {{ numero_ordem }}</div>
+        <div class="ep_qr-code">
+          {{ qr_code_data_uri | safe}}
+        </div>
+        <div class="ep_inscription">{{ id_inscricao }}</div>
+        <div class="ep_rg">CPF: {{ rg }}</div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .is_page {
+      font-family: Arial, sans-serif;
+      font-size: 8pt;
+      page-break-after: always;
+      padding: 5mm;
+      padding-bottom: 0;
+      margin: 0;
+    }
+
+    .is_inner_page {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: calc(100vh - 12.5mm);
+
+      border: 4px solid black;
+    }
+
+    .is_info_edtial {
+      padding: 0 1cm;
+      font-size: 5.5mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 0.5cm;
+
+      text-align: center;
+    }
+
+    .is_info_edtial h2 {
+      margin-bottom: 0;
+      display: block;
+    }
+
+    .is_nome_sala {
+      font-size: 1.4cm;
+      padding: 0 1cm;
+      margin-bottom: 0.5cm;
+      text-align: center;
+    }
+
+    .is_envelope {
+      font-size: .5cm;
+      font-weight: bold;
+      margin-bottom: 0.5cm;
+    }
+
+    .is_table {
+      width: 100%;
+      margin-top: 0.5cm;
+      border-collapse: collapse;
+      font-weight: normal;
+    }
+
+    .is_table,
+    .is_tr,
+    .is_th,
+    .is_td {
+      border-top: 1px solid black;
+    }
+
+    .is_th {
+      background-color: #f0f0f0;
+    }
+
+    .is_td {
+      padding: 2mm;
+      font-weight: normal;
+    }
+
+    .is_footer {
+      position: absolute;
+      margin-top: 1cm;
+      display: flex;
+      bottom: 1cm;
+      width: 90%;
+      justify-content: space-around;
+      font-size: 5.5mm;
+      text-align: center;
+    }
+  </style>
+  <div class="is_page">
+    <div class="is_inner_page">
+      {{ header }}
+      <div class="is_info_edtial">
+        <h2>{{ cidade }}</h2>
+        <h2>{{ dia }} - {{shift}}</h2>
+        <span>{{escola_tag}} - {{ nome_escola }}</span>
+      </div>
+
+      <h1 class="is_nome_sala">{{ dia }} - {{shift}} - {{sala}}</h1>
+      <span class="is_envelope">Envelope - {{ envelope }}</span>
+      <table class="is_table">
+        <tr class="is_tr">
+          <th class="is_th" style="width: 20%; text-align: center;">Código</th>
+          <th class="is_th" style="width: 60%; text-align: left;">Vaga</th>
+          <th class="is_th" style="width: 20%; text-align: center;">Qtde.</th>
+        </tr>
+        {% for item in cargos %}
+        <tr class="is_tr">
+          <th class="is_td" style="width: 20%; text-align: center;">{{ cargos[item].id }}</td>
+          <th class="is_td" style="width: 60%; text-align: left;">{{ cargos[item].nome }}</td>
+          <th class="is_td" style="width: 20%; text-align: center;">{{ cargos[item].qtde }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <div class="is_footer">
+        <label>PRESENTES: __________</label>
+        <label>AUSENTES: __________</label>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

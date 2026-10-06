@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .cr_page {
+      font-family: Arial, sans-serif;
+      font-size: 8pt;
+      position: relative;
+      page-break-after: always;
+      margin: 1cm 1cm;
+      padding: 12px;
+    }
+
+    .cr_notice_sheet_info {
+      position: relative;
+      display: flex;
+      align-items: baseline;
+      /* background-color: red; */
+      justify-content: space-between;
+      padding-inline: 5mm;
+      max-height: 2cm;
+    }
+
+    .cr_city_hall {
+      display: flex;
+      align-items: end;
+      width: 12cm;
+    }
+
+    .cr_city_hall_logo {
+      width: 1.5cm;
+      height: 1.5cm;
+      /* background-color: #e99e9e; */
+    }
+
+    .cr_notice_info {
+      display: flex;
+      flex-direction: column;
+      margin-left: 0.5cm;
+      text-align: left;
+      justify-content: flex-end;
+    }
+
+    .cr_notice_info p:not(:last-child) {
+      margin-bottom: -0.1cm;
+    }
+
+    .cr_seq_order {
+      position: absolute;
+      bottom: 2mm;
+      right: 0;
+      border: 1px solid black;
+      /* border-bottom: 0; */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1mm 2mm;
+      height: calc(2.5cm/3);
+      justify-content: space-between;
+    }
+
+    .cr_seq_order label {
+      font-size: 8px;
+    }
+
+    .cr_seq_order span {
+      font-weight: bold;
+      font-size: 10px;
+    }
+
+    .cr_institute_logo {
+      width: 4.5cm;
+      height: 1.5cm;
+      margin-right: 2cm;
+    }
+
+    /* QR CODE AND APPLICANT INFO */
+
+    .cr_qr_code_applicant_info {
+      display: flex;
+    }
+
+    .cr_qr_code_container {
+      border: 1px solid #000000;
+      width: 4cm;
+      height: 4cm;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .cr_insc_container {
+      position: relative;
+      min-height: calc(2.5cm/3);
+      max-height: calc(2.5cm/3);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1mm;
+      align-items: center;
+      border-bottom: 1px solid #000000;
+      width: 100%;
+    }
+
+    .cr_qr_code {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cr_insc_container>label {
+      position: absolute;
+      top: 0.5mm;
+      left: 0.5mm;
+      font-size: 8px;
+    }
+
+    .cr_applicant_info {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      height: 4cm;
+      border: 1px solid #000000;
+      border-left: 0;
+    }
+
+    .cr_applicant_row {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      border-bottom: 1px solid #000000;
+    }
+
+    .cr_applicant_coll {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      border-right: 1px solid #000000;
+      padding: 1mm;
+      justify-content: flex-start;
+      padding-left: 2mm;
+    }
+
+    .cr_applicant_coll>label {
+      position: absolute;
+      top: 0.5mm;
+      left: 0.5mm;
+      font-size: 8px;
+    }
+
+    .cr_applicant_coll:last-child {
+      border-right: none;
+    }
+
+    .cr_school_shift_room_order {
+      display: flex;
+    }
+
+
+    .cr_phrase_container {
+      height: 1.5cm;
+      text-align: center;
+      padding: 0.1cm;
+      background-color: #eee;
+      font-weight: bold;
+    }
+
+    .cr_applicant_signature_fingerprint {
+      display: flex;
+      height: 3.5cm;
+      font-size: 6pt;
+    }
+
+    .cr_applicant_signature {
+      width: 75%;
+      border-right: 1px solid #000000;
+      border-bottom: 1px solid #000000;
+      border-left: 1px solid #000000;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      text-align: center;
+      padding: 0cm 0.5cm 0.2cm 0.5cm;
+      font-size: 9pt;
+    }
+
+    .cr_signature_line {
+      border-bottom: 1px solid #000000;
+      margin-bottom: 0.2cm;
+      height: 2.5cm;
+    }
+
+    .cr_signature_line span {
+      font-size: 10pt;
+
+    }
+
+    .cr_applicant_fingerprint {
+      flex-grow: 4;
+      border-right: 1px solid #000000;
+      border-bottom: 1px solid #000000;
+      padding: 0.1cm;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      justify-content: flex-end;
+    }
+
+    .cr_fingerprint_container {
+      height: 3cm;
+      /* border: 1px solid #000000; */
+      border-radius: 10%;
+      /* margin-bottom: 0.2cm; */
+      text-align: center;
+    }
+
+    .cr_thumb {
+      font-size: 4pt;
+    }
+
+    /* ANSWER NOTES AND INSPECTOR AREA */
+
+    .cr_answer_test_notes_and_inspector_area {
+      display: flex;
+    }
+
+    .cr_left_conteiner {
+      border: 1px solid #000000;
+      border-top: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* padding: 2mm 0 0 0; */
+      background-color: #eee;
+      width: 40%;
+      /* gap: 2mm; */
+      justify-content: space-between;
+      font-weight: bold;
+    }
+
+    .cr_test_type {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0.3cm;
+      border: 1px solid #000000;
+      border-bottom: 0;
+      border-top: 0;
+      background-color: white;
+      text-align: center;
+    }
+
+    #cr_test_title {
+      font-size: 10pt;
+    }
+
+    .cr_test-options {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 0.2cm;
+    }
+
+    .cr_option {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .cr_option span {
+      font-size: 3mm;
+    }
+
+    .cr_answer_notes {
+      display: flex;
+      flex-direction: column;
+
+      text-align: center;
+      width: auto;
+      /* padding: 0.3cm; */
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .cr_option_circle {
+      font-size: 4.75mm;
+      font-weight: normal;
+      /* margin-top: 1mm; */
+    }
+
+    .cr_demonstration_circle {
+      position: relative;
+      width: 2mm;
+      height: 2mm;
+      border: 1px solid #000000;
+      border-radius: 50%;
+    }
+
+    .cr_how_to {
+      display: flex;
+      align-items: center;
+      padding: 0mm 2mm;
+      width: 100%;
+      border-top: 1px solid #000000;
+      background-color: white;
+      box-sizing: border-box;
+    }
+
+    .cr_how_to span {
+      margin-right: 0.3cm;
+    }
+
+    .cr_how_to div {
+      background-color: #000000;
+    }
+
+    .cr_how_not_to {
+      display: flex;
+      align-items: center;
+      padding: 0 2mm;
+      width: 100%;
+      border-top: 1px solid #000000;
+      background-color: white;
+      box-sizing: border-box;
+    }
+
+    .cr_how_not_to span {
+      margin-right: 0.3cm;
+    }
+
+    .cr_how_not_to div {
+      position: relative;
+    }
+
+    .cr_how_not_to div:not(:last-child) {
+      margin-right: 0.15cm;
+    }
+
+    #cr_x::before {
+      content: "\2718";
+      display: block;
+      font-size: 2.2mm;
+      text-align: center;
+      line-height: 2mm;
+    }
+
+    #cr_irregular::before {
+      content: "\2022";
+      display: block;
+      font-size: 4mm;
+      line-height: 2mm;
+      transform: rotate(-38deg);
+    }
+
+    #cr_checkmark::before {
+      content: "\2713";
+      display: block;
+      font-size: 2.2mm;
+      text-align: center;
+      line-height: 2mm;
+    }
+
+    #cr_ellipse::before {
+      content: "\2B2E";
+      display: block;
+      font-size: 3mm;
+      text-align: center;
+      line-height: 2mm;
+      transform: rotate(38deg);
+    }
+
+    #cr_ok::before {
+      content: "\2022";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8.5mm;
+      line-height: 1;
+      height: 100%;
+      margin-top: 0.05mm;
+    }
+
+    .cr_inspector_area {
+      border-right: 1px solid #000000;
+      border-bottom: 1px solid #000000;
+      flex-grow: 1;
+      /* font-size: 8pt; */
+      text-align: center;
+      font-weight: bold;
+      /* padding-bottom: 0.5cm; */
+    }
+
+    #cr_inspector_title {
+      margin: 0;
+      padding-top: 0.1cm;
+      padding-bottom: 0.3cm;
+      font-size: 10pt;
+    }
+
+    .cr_inspector_options {
+      display: flex;
+      gap: 2mm;
+      padding: 0 2mm;
+    }
+
+    .cr_inspector_column {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      /* margin-left: 0.4cm; */
+      /* flex-grow: 0.5; */
+    }
+
+    .cr_inspector_column:first-child {
+      flex: .5;
+    }
+
+    .cr_inspector_option {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      font-size: 6pt;
+      /* background-color: red; */
+    }
+
+    .cr_inspector_option span {
+      margin-left: 0.2cm;
+      text-align: left;
+    }
+
+    /* RESPONSE SECTION */
+
+    .cr_response_section_container {
+      position: relative;
+      margin-top: 1mm;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cr_question {
+      display: flex;
+      margin-bottom: 0.25mm;
+      margin-top: 0.25mm;
+    }
+
+    .cr_circles {
+      display: flex;
+      margin: -0.25mm 0;
+    }
+
+    .cr_circle {
+      font-size: 4.75mm;
+      letter-spacing: 1.4mm;
+    }
+
+    .cr_question_number {
+      margin-right: 2mm;
+      font-size: 14px;
+    }
+
+    .cr_items span {
+      font-size: 3.5mm;
+      letter-spacing: 2.5mm;
+      margin-left: .75cm;
+    }
+
+    .cr_top-left-l {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-top: 10px solid black;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid black;
+      z-index: 99;
+    }
+
+    .cr_top-right-l {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-top: 10px solid black;
+      border-right: 10px solid black;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid transparent;
+      z-index: 99;
+    }
+
+    .cr_bottom-left-l {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-top: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid black;
+      border-left: 10px solid black;
+      z-index: 99;
+    }
+
+    .cr_bottom-right-l {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-top: 10px solid transparent;
+      border-right: 10px solid black;
+      border-bottom: 10px solid black;
+      border-left: 10px solid transparent;
+      z-index: 99;
+    }
+  </style>
+
+  <div class="cr_page">
+    <div class="cr_top-left-l"></div>
+    <div class="cr_top-right-l"></div>
+    <div class="cr_bottom-left-l"></div>
+    <div class="cr_bottom-right-l"></div>
+    <div class="cr_notice_sheet_info">
+      <div class="cr_city_hall">
+        <div class="cr_city_hall_logo">
+          <img class="cr_city_hall_logo" src="{{ prefeitura_logo }}" />
+        </div>
+        <div class="cr_notice_info">
+          <p>{{ edital }}</p>
+          <p></p>
+          <p style="font-size: 10pt; margin-bottom: 1mm;"><b>FOLHA DE RESPOSTA</b></p>
+        </div>
+      </div>
+      <div class="cr_institute_logo">
+        <img class="cr_institute_logo" src="{{ instituto_logo }}" />
+      </div>
+      <div class="cr_seq_order">
+        <label>Nº SEQUENCIAL</label>
+        <span>{{ordem_geral}}</span>
+      </div>
+    </div>
+    <div class="cr_qr_code_applicant_info">
+      <div class="cr_qr_code_container">
+        <div class="cr_insc_container">
+          <label>INSCRIÇÃO:</label>
+          <span id="">{{id_inscricao}}</span>
+        </div>
+        <div class="cr_qr_code">{{ qr_code | safe }}</div>
+      </div>
+      <div class="cr_applicant_info">
+        <div class="cr_applicant_row">
+          <div class="cr_applicant_coll" style="flex: 1.5;">
+            <label>CPF:</label>
+            <span>{{candidato_cpf}}</span>
+          </div>
+          <div class="cr_applicant_coll" style="flex: 7;">
+            <label>NOME:</label>
+            <span style="font-size: 7pt;">{{nome_candidato}}</span>
+          </div>
+          <div class="cr_applicant_coll" style="flex: 1.5; justify-content: center;">
+            <span>{{turno}}</span>
+          </div>
+        </div>
+        <div class="cr_applicant_row">
+          <div class="cr_applicant_coll" style="flex: 1.5;">
+            <label>RG:</label>
+            <span>{{candidato_rg}}</span>
+          </div>
+          <div class="cr_applicant_coll" style="flex: 7;">
+            <span style="font-size: 7pt;">{{nome_cargo}} </span>
+          </div>
+          <div class="cr_applicant_coll" style="flex: 1.5; justify-content: center;">
+            <span style="font-size: 6pt;">CARTEIRA: {{ordem}}</span>
+          </div>
+        </div>
+        <div class="cr_applicant_row">
+          <div class="cr_applicant_coll" style="flex: 0; border-color: transparent !important;"></div>
+          <div class="cr_applicant_coll" style="flex: 8.5;">
+            <span style="font-size: 7pt;"> {{ nome_escola }} - {{ bloco }} - {{ andar }}</span>
+          </div>
+          <div class="cr_applicant_coll" style="flex: 1.5; justify-content: center;">
+            <span>{{sala}}</span>
+          </div>
+        </div>
+        <div class="cr_phrase_container">
+          <span>Escreva, no espaço a seguir, com sua caligrafia usual, a frase indicada
+            na capa de seu caderno de prova:</span>
+        </div>
+      </div>
+    </div>
+    <div class="cr_applicant_signature_fingerprint">
+      <div class="cr_applicant_signature">
+        <div class="cr_signature_line"></div>
+        <span>ASSINATURA DO CANDIDATO (ASSINE SOBRE A LINHA)</span>
+      </div>
+      <div class="cr_applicant_fingerprint">
+        <span><strong>AUTENTICAÇÃO DIGITAL</strong></span>
+        <div class="cr_fingerprint_container">
+          <span class="cr_thumb"><strong>POLEGAR DIREITO</strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="cr_answer_test_notes_and_inspector_area">
+      <div class="cr_left_conteiner">
+        <div class="cr_test_type">
+          <span id="cr_test_title">TIPO DE PROVA</span>
+          <div class="cr_test-options">
+            <!-- <div class="cr_option">
+              <span>Tipo Único</span> 
+              <div class="cr_demonstration_circle" id="cr_ok"></div>
+            </div> -->
+            <div class="cr_option">
+              <span>A</span>
+              <div class="cr_option_circle">O</div>
+            </div>
+            <div class="cr_option">
+              <span>B</span>
+              <div class="cr_option_circle">O</div>
+            </div>
+            <!-- <div class="cr_option">
+              <span>C</span>
+              <div class="cr_option_circle">O</div>
+            </div>
+            <div class="cr_option">
+              <span>D</span>
+              <div class="cr_option_circle">O</div>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="cr_answer_notes">
+          <div class="cr_how_to">
+            <span>PREENCHA ASSIM</span>
+            <span style="font-size: 1rem;">⟶</span>
+            <div class="cr_demonstration_circle" id="cr_ok"></div>
+          </div>
+          <div class="cr_how_not_to">
+            <span><strong>NÃO</strong> PREENCHA ASSIM</span>
+            <span style="font-size: 1rem;">⟶</span>
+            <div class="cr_demonstration_circle" id="cr_x"></div>
+            <div class="cr_demonstration_circle" id="cr_irregular"></div>
+            <div class="cr_demonstration_circle" id="cr_checkmark"></div>
+            <div class="cr_demonstration_circle" id="cr_ellipse"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cr_inspector_area">
+        <p id="cr_inspector_title">PARA USO EXCLUSIVO DO FISCAL</p>
+        <div class="cr_inspector_options">
+          <div class="cr_inspector_column">
+            <div class="cr_inspector_option">
+              <div class="cr_option_circle">O</div>
+              <span>PRESENTE</span>
+            </div>
+            <div class="cr_inspector_option">
+              <div class="cr_option_circle">O</div>
+              <span>AUSENTE</span>
+            </div>
+          </div>
+          <div class="cr_inspector_column">
+            <div class="cr_inspector_option">
+              <div class="cr_option_circle">O</div>
+              <span>CARTÃO NÃO PREENCHIDO</span>
+            </div>
+            <div class="cr_inspector_option">
+              <div class="cr_option_circle">O</div>
+              <span>CARTÃO SEM ASSINATURA</span>
+            </div>
+            <div class="cr_inspector_option">
+              <div class="cr_option_circle">O</div>
+              <span>CARTÃO SEM A FRASE</span>
+            </div>
+          </div>
+          <div class="cr_inspector_column">
+            <div class="cr_inspector_option">
+              <div class="cr_option_circle">O</div>
+              <span>CARTÃO SUBSTITUÍDO</span>
+            </div>
+            <div class="cr_inspector_option">
+              <div class="cr_option_circle">O</div>
+              <span>CARTÃO ADICIONADO</span>
+            </div>
+            <div class="cr_inspector_option">
+              <div class="cr_option_circle">O</div>
+              <span>CANDIDATO ELIMINADO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cr_response_section_container">
+      {% set total_colunas = (questoes // 25) + (1 if questoes % 25 > 0 else 0) %}
+      {% for col in range(total_colunas) %}
+      <div>
+        <div class="cr_items"><span><strong>ABCDE</strong></span></div>
+        {% for i in range(col * 25 + 1, min((col + 1) * 25 + 1, questoes + 1)) %}
+        <div class="cr_question">
+          <div class="cr_question_number" {% if i==100 %} style="margin-left: -1ch;" {% endif %}><strong>{{
+              "%02d"|format(i)
+              }}.</strong></div>
+          <div class="cr_circles">
+            <div class="cr_circle">OOOOO</div>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="cr_items"><span><strong>ABCDE</strong></span></div>
+      </div>
+      {% endfor %}
+      {% for col in range(4 - total_colunas) %}
+      <div style="visibility: hidden;">
+        <div class="cr_items"><span><strong>ABCDE</strong></span></div>
+        <div class="cr_question">
+          <div class="cr_question_number"><strong>00.</strong></div>
+          <div class="cr_circles">
+            <div class="cr_circle">OOOOO</div>
+          </div>
+        </div>
+        <div class="cr_items"><span><strong>ABCDE</strong></span></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+
+</html>

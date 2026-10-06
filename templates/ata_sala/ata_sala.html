@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata de Sala</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            /* font-size: 10pt; */
+            background-color: #fff;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 30px;
+            box-sizing: border-box;
+            position: relative;
+            page-break-after: always;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NoticeInfo */
+        .notice-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .notice-title {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .notice-subtitle {
+            font-size: 9pt;
+            margin-bottom: 3px;
+        }
+        .notice-organizacao {
+            font-size: 8pt;
+            margin-bottom: 5px;
+        }
+        .main-title {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-top: 10px;
+            background-color: #ddd;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* SchoolInfo */
+        .school-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .school-name-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+            margin-top: 5px;
+        }
+        .school-room-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            padding: 5px;
+        }
+        .school-stats-row {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            justify-content: space-between;
+            font-size: 10pt;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 5px;
+            gap: 10px;
+        }
+        .stats-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 10pt;
+            padding-right: 5px;
+            width: fit-content;
+        }
+        .stats-column > p {
+            margin: 0;
+            padding-bottom: 1px;
+            text-align: right;
+        }
+        .obs-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .obs-title {
+            border: 1px solid black;
+            border-bottom: none;
+        }
+        .notebook-lines {
+            border: 1px solid #000;
+            border-bottom: 0;
+            position: relative;
+        }
+        .notebook-line {
+            /* position: absolute; */
+            width: 100%;
+            left: 0;
+            right: 0;
+            height: .6cm;
+            border-bottom: 1px solid #000;
+            /* background-color: aquamarine; */
+            /* background-color: #000; */
+        }
+
+        /* HeaderSeparetor */
+        .header-separator {
+            margin-top: 5px;
+        }
+        .header-title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            /* background-color: #ccc; */
+            padding: 5px;
+            /* margin-bottom: 5px; */
+            font-size: 8pt;
+            font-weight: bold;
+        }
+
+        /* SealInspection */
+        .seal-inspection {
+            border: 1px solid #000;
+            border-collapse: collapse;
+            width: 100%;
+            text-align: left;
+        }
+
+        .seal-inspection th {
+            font-size: 12px;
+            font-weight: normal;
+            height: .4cm;
+            width: 100%;
+            border: 1px solid #000;
+            padding: .5mm 2mm;
+        }
+
+
+        .seal-inspection td {
+            border: 1px solid #000;
+            text-align: center;
+            height: .5cm;            
+        }
+
+        .seal-title-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 10pt;
+            margin-top: 5px;
+        }
+        .seal-subtitle {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-around;
+            font-size: 10pt;
+            margin-top: 3px;
+            padding: 1px;
+            margin-right: 35px;
+        }
+        .seal-table {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 10pt;
+            margin-top: 10px;
+            padding: 5px;
+        }
+        .seal-column {
+            width: 80px;
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            font-size: 10pt;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding-top: 5px;
+        }
+        .signature {
+            font-size: 8pt;
+            border-top: 1px solid black;
+            padding-top: 2mm;
+            width: 6cm;
+        }
+
+        .qtd_candidatos {
+            position: absolute;
+            top: 0;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        {{ header }}
+
+        <!-- SchoolInfo -->
+        <div class="school-info">
+            <div class="school-name-row">
+                <div>{{ escola }}</div>
+            </div>
+            <div class="school-room-row">
+                <div>&nbsp;{{ dia }} - </div>
+                <div>&nbsp;{{ turno }} - </div>
+                <div>&nbsp; {{ sala }} &nbsp;</div>
+            </div>
+            <div class="school-stats-row">
+                <div class="stats-column">
+                    <p style="position: relative;">Total inscrito: _____<span class="qtd_candidatos">{{ inscritos }}</span></p>
+                    <p>Total presente: _____</p>
+                    <p>Total ausente: _____</p>
+                </div>
+                <div class="obs-column">
+                    <div class="obs-title">Observações:</div>
+                    <div class="notebook-lines" >
+                        <div class="notebook-line"></div>
+                        <div class="notebook-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HeaderSeparetor: VISTORIA DO LACRE DE PROVAS -->
+        <div class="header-separator">
+            <div class="header-title">VISTORIA DO LACRE DE PROVAS</div>
+        </div>
+
+        <!-- SealInspection -->
+        <table class="seal-inspection">
+            <tr>
+                <th style="width: 20%;">INSCRIÇÃO</th>
+                <th>ASSINATURA</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- HeaderSeparetor: ULTIMOS CANDIDATOS -->
+        <div class="header-separator">
+            <div class="header-title">ULTIMOS CANDIDATOS</div>
+        </div>
+
+        <!-- SealInspection com 3 linhas -->
+        <table class="seal-inspection">
+            <tr>
+                <th style="width: 20%;">INSCRIÇÃO</th>
+                <th>ASSINATURA</th>
+            </tr>
+            <tr>
+                <td ></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- HeaderSeparetor: OCORRENCIAS -->
+        <div class="header-separator">
+            <div class="header-title">OCORRÊNCIAS</div>
+        </div>
+
+        <!-- Notebook com 20 linhas -->
+        <div class="notebook-lines" >
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+            <div class="notebook-line"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="signature">Assinaturas do fiscal</div>
+            <div class="signature">Assinaturas do coordenador</div>
+        </div>
+    </div>
+</body>
+</html>

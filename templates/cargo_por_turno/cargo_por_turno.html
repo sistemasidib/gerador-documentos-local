@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .cpt_page {
+            font-family: Arial, sans-serif;
+            font-size: 8pt;
+            position: relative;
+            page-break-after: always;
+            margin: 5mm;
+        }
+
+        /* Estilos da distribuição */
+        .cpt_organizacao {
+            text-align: center;
+            font-size: 10pt;
+            margin-bottom: 10px;
+        }
+
+        .cpt_school-container {
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+        }
+
+        .cpt_school-header {
+            background-color: #c8c8c8;
+            padding: 5px;
+            font-weight: bold;
+            font-size: 10pt;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            column-gap: 10px;
+            align-items: center;
+        }
+
+        .cpt_school-name {
+            justify-self: start;
+        }
+
+        .cpt_school-total {
+            justify-self: center;
+        }
+
+        .cpt_school-hour {
+            text-align: right;
+            min-width: 100px;
+            justify-self: start;
+        }
+
+        .cpt_positions-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+            margin-top: 0;
+        }
+
+        .cpt_positions-table th,
+        .cpt_positions-table td {
+            border-top: 1px solid #000;
+            padding: 3px 5px;
+            text-align: left;
+        }
+
+        .cpt_positions-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            padding: 3px 5px;
+            margin-top: 0;
+        }
+
+        .cpt_footer {
+            position: fixed;
+            bottom: 15mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 8pt;
+        }
+    </style>
+
+    <div class="cpt_page">
+        {{ header }}
+
+        {% for turno in turnos %}
+        <div class="cpt_school-container">
+            <div class="cpt_school-header">
+                <div class="cpt_school-hour">{{ turno.horario }} {{ turno.turno }}</div>
+                <div class="cpt_school-total">(TOTAL: {{ turno.qtd_candidatos }})</div>
+            </div>
+
+            <table class="cpt_positions-table">
+                <thead>
+                    <tr>
+                        <th style="width: 70%;">Cargo</th>
+                        <th>Nível</th>
+                        <th>Inscritos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cargo in turno.cargos %}
+                    <tr>
+                        <td style="width: 50%;">{{ cargo.nome }}</td>
+                        <td>{{ cargo.nivel }}</td>
+                        <td>{{ cargo.qtd }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

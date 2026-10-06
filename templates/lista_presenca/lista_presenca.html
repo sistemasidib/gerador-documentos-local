@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .lp_page {
+      font-family: Arial, sans-serif;
+      font-size: 8pt;
+      position: relative;
+      page-break-after: always;
+      margin: 5mm;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: calc(100vh - 10mm);
+      padding: 0;
+
+      padding-top: 5mm;
+      /* para ajustar a margin top bugada */
+    }
+
+    .lp_info_edital {
+      padding: 0 1cm;
+      font-size: 5.5mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 0.5cm;
+      text-align: center;
+    }
+
+    .lp_info_edital h2 {
+      margin: 0;
+      display: block;
+      font-size: 5.5mm;
+    }
+
+    .lp_nome_escola {
+      margin: 0;
+      font-weight: normal;
+      font-size: 16px;
+      padding: 3mm 0 1mm 0;
+    }
+
+    .lp_nome_sala {
+      margin: 0;
+      text-align: center;
+      font-size: 1cm;
+      padding: 1.5mm 0;
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      margin-bottom: 2mm;
+      width: 100%;
+      position: relative;
+    }
+
+    .lp_nome_sala_qtd {
+      position: absolute;
+      left: 5mm;
+      bottom: 1mm;
+      font-size: 10px;
+    }
+
+    .lp_container {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .lp_column {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .lp_participant-card {
+      width: 100%;
+      /* border: 1px solid #000; */
+      /* padding: 4px; */
+      display: flex;
+      box-sizing: border-box;
+      min-height: 60px;
+      font-size: 10px;
+    }
+
+    .lp_photo-placeholder {
+      width: 90px;
+      height: 70px;
+      background: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-size: 10px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .lp_participant-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lp_info-line {
+      margin-bottom: 6px;
+    }
+
+    .lp_dual-info {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .lp_signature-line {
+      border-bottom: 1px solid #000;
+      width: 100%;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+
+    .lp_page-index {
+      position: absolute;
+      right: 5mm;
+      bottom: 5mm;
+      font-size: 10px;
+    }
+  </style>
+  <div class="lp_page">
+    {{ header}}
+
+    <div class="lp_info_edital">
+      <h2>{{ cidade }}</h2>
+      <h2>{{ dia }} - {{ turno }}</h2>
+    </div>
+
+    <h1 class="lp_nome_escola">{{ nome_escola }}</h1>
+    <h1 class="lp_nome_sala"><span class="lp_nome_sala_qtd">Qtd.: {{ candidatos|length }}</span>{{ dia }} - {{ turno }} - {{ sala }}</h1>
+
+    {# Primeira página com 16 candidatos (8 à esquerda, depois 8 à direita) #}
+    <div class="lp_container">
+      <div class="lp_column">
+        {% for candidato in candidatos[:8] %}
+        <div class="lp_participant-card">
+          <div class="lp_participant-info">
+            <div class="lp_dual-info">
+              <div class="lp_info-line">
+                <strong>INSCRIÇÃO: </strong>
+                {{ candidato.inscricao }}
+              </div>
+              <div class="lp_info-line">
+                <strong>N° ORDEM: </strong>
+                {{ candidato.numero_ordem }}
+              </div>
+            </div>
+            <div class="lp_info-line">
+              <strong>NOME: </strong>
+              {{ candidato.nome }}
+            </div>
+            <div class="lp_dual-info">
+              <div class="lp_info-line">
+                <strong>RG: </strong>
+                {{ candidato.rg }}
+              </div>
+              <div class="lp_info-line">
+                <strong>CPF: </strong> 
+                {{ candidato.cpf }}
+              </div>
+            </div>
+            <div class="lp_info-line lp_signature-line">
+              <strong>ASSINATURA:</strong>
+            </div>
+          </div>
+          <div class="lp_page-index">1</div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="lp_column">
+        {% for candidato in candidatos[8:16] %}
+        <div class="lp_participant-card">
+          <div class="lp_participant-info">
+            <div class="lp_dual-info">
+              <div class="lp_info-line">
+                <strong>INSCRIÇÃO: </strong>
+                {{ candidato.inscricao }}
+              </div>
+              <div class="lp_info-line">
+                <strong>N° ORDEM: </strong>
+                {{ candidato.numero_ordem }}
+              </div>
+            </div>
+            <div class="lp_info-line">
+              <strong>NOME: </strong>
+              {{ candidato.nome }}
+            </div>
+            <div class="lp_dual-info">
+              <div class="lp_info-line">
+                <strong>RG: </strong>
+                {{ candidato.rg }}
+              </div>
+              <div class="lp_info-line">
+                <strong>CPF: </strong>
+                {{ candidato.cpf }}
+              </div>
+            </div>
+            <div class="lp_info-line lp_signature-line">
+              <strong>ASSINATURA:</strong>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {# Páginas de continuação com 16 candidatos cada (8 à esquerda, depois 8 à direita) #}
+  {% if candidatos|length > 16 %}
+    {% for i in range(16, candidatos|length, 16) %}
+    <div class="lp_page">
+      {{ header}}
+
+      <div class="lp_info_edital">
+        <h2>{{ cidade }}</h2>
+        <h2>{{ dia }} - {{ turno }}</h2>
+      </div>
+
+      <h1 class="lp_nome_escola">{{ nome_escola }}</h1>
+      <h1 class="lp_nome_sala">{{ dia }} - {{ turno }} - {{ sala }}</h1>
+
+      <div class="lp_container">
+        <div class="lp_column">
+          {% for candidato in candidatos[i:i+8] %}
+          <div class="lp_participant-card">
+            <div class="lp_participant-info">
+              <div class="lp_dual-info">
+                <div class="lp_info-line">
+                  <strong>INSCRIÇÃO: </strong>
+                  {{ candidato.inscricao }}
+                </div>
+                <div class="lp_info-line">
+                  <strong>N° ORDEM: </strong>
+                  {{ candidato.numero_ordem }}
+                </div>
+              </div>
+              <div class="lp_info-line">
+                <strong>NOME: </strong>
+                {{ candidato.nome }}
+              </div>
+              <div class="lp_dual-info">
+                <div class="lp_info-line">
+                  <strong>RG: </strong>
+                  {{ candidato.rg }}
+                </div>
+                <div class="lp_info-line">
+                  <strong>CPF: </strong>
+                  {{ candidato.cpf }}
+                </div>
+              </div>
+              <div class="lp_info-line lp_signature-line">
+                <strong>ASSINATURA:</strong>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="lp_column">
+          {% for candidato in candidatos[i+8:i+16] %}
+          <div class="lp_participant-card">
+            <div class="lp_participant-info">
+              <div class="lp_dual-info">
+                <div class="lp_info-line">
+                  <strong>INSCRIÇÃO: </strong>
+                  {{ candidato.inscricao }}
+                </div>
+                <div class="lp_info-line">
+                  <strong>N° ORDEM: </strong>
+                  {{ candidato.numero_ordem }}
+                </div>
+              </div>
+              <div class="lp_info-line">
+                <strong>NOME: </strong>
+                {{ candidato.nome }}
+              </div>
+              <div class="lp_dual-info">
+                <div class="lp_info-line">
+                  <strong>RG: </strong>
+                  {{ candidato.rg }}
+                </div>
+                <div class="lp_info-line">
+                  <strong>CPF: </strong>
+                  {{ candidato.cpf }}
+                </div>
+              </div>
+              <div class="lp_info-line lp_signature-line">
+                <strong>ASSINATURA:</strong>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="lp_page-index">{{ loop.index + 1 }}</div>
+    </div>
+    {% endfor %}
+  {% endif %}
+
+</body>
+
+</html>

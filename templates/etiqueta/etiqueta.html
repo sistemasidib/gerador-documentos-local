@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Capa de Sala</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 216mm;
+            height: 216mm;
+            padding: 0 3mm;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .top-info {
+            text-align: center;
+            margin-top: 10mm;
+            margin-bottom: 5mm;
+        }
+
+        .top-info .concurso {
+            font-size: 13pt;
+            font-weight: bold;
+        }
+
+        .top-info .data {
+            font-size: 11pt;
+            margin-top: 2mm;
+        }
+
+        .top-info .cidade {
+            font-size: 11pt;
+            margin-top: 1mm;
+        }
+
+        .barra-preta {
+            background: #000;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            font-size: 13pt;
+            font-weight: bold;
+            padding: 4mm 0 3mm 0;
+            margin: 8mm 0 8mm 0;
+            letter-spacing: 1px;
+        }
+
+        .escola {
+            text-align: center;
+            font-size: 18pt;
+            font-weight: bold;
+            margin-bottom: 2mm;
+        }
+
+        .cargo {
+            text-align: center;
+            font-size: 14pt;
+            font-weight: normal;
+            margin-bottom: 6mm;
+        }
+
+        .sala-bloco {
+            text-align: center;
+            font-size: 20pt;
+            font-weight: bold;
+            margin-bottom: 4mm;
+        }
+
+        .turno {
+            text-align: center;
+            font-size: 15pt;
+            font-weight: normal;
+            margin-bottom: 6mm;
+        }
+
+        .envelope {
+            text-align: center;
+            font-size: 12pt;
+            font-weight: bold;
+            margin-bottom: 2mm;
+        }
+
+        .descricao-envelope {
+            text-align: center;
+            font-size: 10pt;
+            font-weight: normal;
+        }
+
+        .etiqueta {
+            page-break-inside: avoid;
+            margin-bottom: 10mm;
+            /* Espaço entre as etiquetas */
+            width: 100%;
+        }
+
+        .cargos-lista {
+            margin-top: 1mm;
+            font-size: 12px;
+            text-align: center;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="etiqueta">
+            <div class="top-info">
+                <div class="concurso">{{ concurso }}</div>
+                <div class="data">DATA: {{ data_hora }}</div>
+                <div class="cidade">{{ cidade }}</div>
+            </div>
+            <div class="barra-preta">{{ tipo }}</div>
+            <div class="escola">{{ escola }}</div>
+            <div class="cargo">{{ cargo }}</div>
+            <div class="sala-bloco">{{ bloco }} - {{ andar }} - {{ sala }}</div>
+            <div class="turno">{{ dia }} - {{ turno }}</div>
+            <div class="envelope">ENVELOPE: {{ envelope }} - QUANTIDADE: {{ quantidade }}</div>
+            <div class="cargos-lista">
+                {% for cargo, quantidade in cargos_dict.items() %}
+                {{ cargo }}: ({{ quantidade }}).
+                {% endfor %}
+            </div>
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .lps_page {
+        font-family: Arial, sans-serif;
+        font-size: 8pt;
+        position: relative;
+        page-break-after: always;
+        page-break-before: always;
+        margin: 5mm;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: calc(100% - 10mm);
+        padding: 0;
+
+        padding-top: 5mm; /* para ajustar a margin top bugada */
+      }
+
+      .lps_info_edtial {
+        padding: 0 1cm;
+        font-size: 5.5mm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 0.5cm;
+        text-align: center;
+      }
+
+      .lps_info_edtial h2 {
+        margin: 0;
+        display: block;
+        font-size: 5.5mm;
+      }
+
+      .lps_nome_escola {
+        margin: 0;
+        font-weight: normal;
+        font-size: 16px;
+        padding: 3mm 0 1mm 0;
+      }
+
+      .lps_nome_sala {
+        margin: 0;
+        text-align: center;
+        font-size: 1cm;
+        padding: 1.5mm 0;
+        border-top: 1px solid black;
+        width: 100%;
+      }
+
+      .lps_envelope {
+        font-size: 0.5cm;
+        font-weight: bold;
+        margin-bottom: 0.5cm;
+      }
+
+      .lps_table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .lps_table,
+      .lps_tr,
+      .lps_th,
+      .lps_td {
+        font-size: 10px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+
+      .lps_tr.alt {
+        background-color: #f0f0f0;
+      }
+
+      .lps_th {
+        font-weight: bold;
+      }
+
+      .lps_td {
+        font-weight: normal;
+      }
+
+      .lps_total_candidatos {
+        text-align: center;
+        width: 100%;
+        padding: 2mm 0;
+        font-size: 12px;
+        font-weight: bold;
+        border-bottom: 1px solid black;
+      }
+    </style>
+    <div class="lps_page">
+      {{ header }}
+
+      <div class="lps_info_edtial">
+        <h2>{{ cidade }}</h2>
+        <h2>{{ dia }} - {{ turno }}</h2>
+      </div>
+
+      <h1 class="lps_nome_escola">{{ nome_escola }}</h1>
+      <h1 class="lps_nome_sala">{{ bloco }} - {{ andar }} - {{ sala }}</h1>
+
+      <table class="lps_table">
+        <tr class="lps_tr">
+          <th class="lps_th" style="width: 16%; text-align: center">
+            INSCRIÇÃO
+          </th>
+          <th class="lps_th" style="width: 12%; text-align: center">
+            CARTEIRA
+          </th>
+          <th class="lps_th" style="width: 40%; text-align: left">NOME</th>
+          <th class="lps_th" style="width: 32%; text-align: left">VAGA</th>
+        </tr>
+        {% for candidato in candidatos %}
+        <tr class="lps_tr {% if loop.index is odd %}alt{% endif %}">
+          <td class="lps_td" style="width: 16%; text-align: center">
+            {{ candidato.inscricao }}
+          </td>
+          <td class="lps_td" style="width: 12%; text-align: center">
+            {{ candidato.numero_ordem }}
+          </td>
+          <td class="lps_td" style="width: 40%; text-align: left">
+            {{ candidato.nome }}
+          </td>
+          <td
+            class="lps_td"
+            style="width: 32%; text-align: left; font-size: 8px"
+          >
+            {{ candidato.cargo }}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <span class="lps_total_candidatos"
+        >TOTAL DE CANDIDATOS: {{ total_candidatos }}</span
+      >
+    </div>
+  </body>
+</html>
