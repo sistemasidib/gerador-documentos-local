@@ -45,10 +45,10 @@ def gerar_docs(edital):
     executar_relatorios(db.domingo.manha, db.edital, gerar_conjunto_cartao_resposta, "cartao_resposta", "domingo_manha", out_dir)
     executar_relatorios(db.domingo.tarde, db.edital, gerar_conjunto_cartao_resposta, "cartao_resposta", "domingo_tarde", out_dir)
 
-    # executar_relatorios(db.sabado.manha, db.edital, gerar_conjunto_discursiva, "discursiva", "sabado_manha", out_dir)
-    # executar_relatorios(db.sabado.tarde, db.edital, gerar_conjunto_discursiva, "discursiva", "sabado_tarde", out_dir)
-    # executar_relatorios(db.domingo.manha, db.edital, gerar_conjunto_discursiva, "discursiva", "domingo_manha", out_dir)
-    # executar_relatorios(db.domingo.tarde, db.edital, gerar_conjunto_discursiva, "discursiva", "domingo_tarde", out_dir)
+    executar_relatorios(db.sabado.manha, db.edital, gerar_conjunto_discursiva, "discursiva", "sabado_manha", out_dir)
+    executar_relatorios(db.sabado.tarde, db.edital, gerar_conjunto_discursiva, "discursiva", "sabado_tarde", out_dir)
+    executar_relatorios(db.domingo.manha, db.edital, gerar_conjunto_discursiva, "discursiva", "domingo_manha", out_dir)
+    executar_relatorios(db.domingo.tarde, db.edital, gerar_conjunto_discursiva, "discursiva", "domingo_tarde", out_dir)
 
     executar_relatorios(db.sabado.manha, db.edital, gerar_conjunto_discursiva_sem_capa, "discursiva_sem_capa", "sabado_manha", out_dir)
     executar_relatorios(db.sabado.tarde, db.edital, gerar_conjunto_discursiva_sem_capa, "discursiva_sem_capa", "sabado_tarde", out_dir)
@@ -97,19 +97,19 @@ def gerar_docs(edital):
     exportar_candidatos_especiais(df, f'{out_dir}/candidatos_especiais.xlsx')
 
     gerar_cartao_branco(db, [100],out_dir)
-    gerar_discursiva_branco(
-        db, 
-        edital_id=int(df['ID_EDITAL'].iloc[0]), 
-        qtd_candidatos=math.ceil(total_candidatos * 0.10), 
-        qtd_questao=1, 
-        qtd_linhas_questao=30, 
-        qtd_linhas_peca=0, 
-        qtd_linhas_redacao=0,
-        passo=1, 
-        out_dir=out_dir
-    )
+    # gerar_discursiva_branco(
+    #     db, 
+    #     edital_id=int(df['ID_EDITAL'].iloc[0]), 
+    #     qtd_candidatos=math.ceil(total_candidatos * 0.10), 
+    #     qtd_questao=1, 
+    #     qtd_linhas_questao=30, 
+    #     qtd_linhas_peca=0, 
+    #     qtd_linhas_redacao=0,
+    #     passo=1, 
+    #     out_dir=out_dir
+    # )
 
-    # exportar_info_vini(df, out_dir)
+    #exportar_info_vini(df, out_dir)
 
     #  url= 'https://concurso.idib.org.br/Conteudo.aspx?ID=26010816075041387724488558307753405702228343635357'
     #  html_qrcode = gerar_qr_code(db.edital.nome, url)
@@ -118,7 +118,7 @@ def gerar_docs(edital):
     # exportar_com_codigo(df,f"{out_dir}/Com_Codigo.xlsx")
 
 editais = [
-    'PIAUI'	
+    'TRINDADE'	
 ]
 
 for edital in editais:
